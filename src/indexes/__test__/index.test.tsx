@@ -126,11 +126,12 @@ describe('Indexes', () => {
       const sidebar = wrapper.find(`.${componentName}__sidebar`);
       document.elementFromPoint = function () {
         // document.elementFromPoint is not defined
-        return sidebar.findAll(`.${componentName}__sidebar-item`)[0].element;
+        return sidebar.findAll(`.${componentName}__sidebar-item`)[1].element;
       };
       await trigger(sidebar, 'touchstart', 20, 20);
       await trigger(sidebar, 'touchmove', 20, 60);
       await trigger(sidebar, 'touchend', 20, 310);
+      expect(wrapper.vm.showSidebarTip).toEqual(true);
     });
   });
 });
